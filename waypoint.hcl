@@ -1,10 +1,5 @@
 project = "countdash"
 
-variable "runner_profile" {
-  description = "The name of the runner profile to use for the operation."
-  type = string
-}
-
 variable "api_replicas" {
   type = number
   default = 1
