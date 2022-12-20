@@ -102,14 +102,14 @@ app "counter-ui" {
     use "kubernetes" {
       replicas     = var.ui_replicas
       service_port = 9002
-      service_account = "count-ui"
+      service_account = "counter-ui"
       labels = {
-        "waypoint-app" = "counter-ui"
+        "waypoint-app" = "counterer-ui"
       }
       annotations = {
         "consul.hashicorp.com/connect-inject"            = "true"
         "consul.hashicorp.com/transparent-proxy"         = "false"
-        "consul.hashicorp.com/connect-service"           = "count-ui"
+        "consul.hashicorp.com/connect-service"           = "counter-ui"
         "consul.hashicorp.com/connect-service-port"      = "9002"
         "consul.hashicorp.com/connect-service-upstreams" = "count-api:9001:nuka-cola"
       }
