@@ -3,18 +3,13 @@ project = "countdash"
 variable "username" {
   description = "Username of user with permission to push to the registry."
   type        = string
-  sensitive = true
+  sensitive   = true
 }
 
 variable "password" {
   description = "Password of user with permission to push to the registry."
   type        = string
-  sensitive = true
-}
-
-variable "api_tag_name" {
-  description = "The tag of the API Docker image to push to the registry."
-  type        = string
+  sensitive   = true
 }
 
 variable "api_image_name" {
