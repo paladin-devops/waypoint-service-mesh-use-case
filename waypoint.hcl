@@ -43,6 +43,7 @@ app "counter-api" {
   build {
     use "docker" {
       dockerfile = "${path.app}/counter-api/Dockerfile"
+      context    = "${path.app}/counter-api/"
     }
 
     registry {
