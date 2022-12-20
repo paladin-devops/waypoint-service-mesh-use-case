@@ -102,6 +102,7 @@ app "counter-ui" {
     use "kubernetes" {
       replicas     = var.ui_replicas
       service_port = 9002
+      service_account = "count-ui"
       annotations = {
         "consul.hashicorp.com/connect-inject"            = "true"
         "consul.hashicorp.com/transparent-proxy"         = "false"
