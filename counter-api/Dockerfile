@@ -1,6 +1,5 @@
 FROM golang:alpine as builder
 WORKDIR /build
-ADD ./Dockerfile /build
 
 COPY go.mod /build
 COPY main.go /build
@@ -12,7 +11,6 @@ RUN go version && \
     GO111MODULE=on CGO_ENABLED=0 GOOS=linux go build
 
 FROM alpine:latest
-MAINTAINER nomadproject.io
 
 WORKDIR /opt
 COPY --from=builder /build/counter-api /opt
