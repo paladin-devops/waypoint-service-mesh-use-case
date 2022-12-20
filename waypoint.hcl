@@ -46,12 +46,14 @@ app "counter-api" {
     }
 
     registry {
-      image = var.api_image_name
-      tag   = var.api_tag_name
+      use "docker" {
+        image = var.api_image_name
+        tag   = var.api_tag_name
 
-      auth {
-        username = var.username
-        password = var.password
+        auth {
+          username = var.username
+          password = var.password
+        }
       }
     }
   }
