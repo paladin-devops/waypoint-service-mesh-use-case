@@ -22,6 +22,16 @@ variable "api_tag_name" {
   type        = string
 }
 
+variable "ui_image_name" {
+  description = "The name of the UI Docker image to push to the registry."
+  type        = string
+}
+
+variable "ui_tag_name" {
+  description = "The tag of the UI Docker image to push to the registry."
+  type        = string
+}
+
 variable "api_replicas" {
   description = "The # of API replicas to deploy."
   type        = number
@@ -74,11 +84,34 @@ app "counter-ui" {
       image = "hashicorpnomad/counter-dashboard"
       tag   = "v1"
     }
+
+    registry {
+      use "docker" {
+        image = var.ui_image_name
+        tag   = var.ui_tag_name
+
+        auth {
+          username = var.username
+          password = var.password
+        }
+      }
+    }
   }
 
   deploy {
     use "kubernetes" {
-      // TODO: Add k8s deployment configs
+      replicas = var.ui_replicas
+      pod {
+        container {
+          port = 9002
+        }
+      }
+      annotations = {
+        consul.hashicorp.com/connect-inject = "true"
+        'consul.hashicorp.com/transparent-proxy': 'false'
+        'consul.hashicorp.com/connect-service': 'count-ui'
+        'consul.hashicorp.com/connect-service-port': '9002'
+      }
     }
   }
 }
