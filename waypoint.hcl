@@ -1,13 +1,42 @@
 project = "countdash"
 
+variable "username" {
+  description = "Username of user with permission to push to the registry."
+  type        = string
+  sensitive = true
+}
+
+variable "password" {
+  description = "Password of user with permission to push to the registry."
+  type        = string
+  sensitive = true
+}
+
+variable "api_tag_name" {
+  description = "The tag of the API Docker image to push to the registry."
+  type        = string
+}
+
+variable "api_image_name" {
+  description = "The name of the API Docker image to push to the registry."
+  type        = string
+}
+
+variable "api_tag_name" {
+  description = "The tag of the API Docker image to push to the registry."
+  type        = string
+}
+
 variable "api_replicas" {
-  type = number
-  default = 1
+  description = "The # of API replicas to deploy."
+  type        = number
+  default     = 1
 }
 
 variable "ui_replicas" {
-  type = number
-  default = 1
+  description = "The # of UI replicas to deploy."
+  type        = number
+  default     = 1
 }
 
 runner {
@@ -19,6 +48,16 @@ app "counter-api" {
   build {
     use "docker" {
       dockerfile = "${path.app}/counter-api/Dockerfile"
+    }
+
+    registry {
+      image = var.api_image_name
+      tag   = var.api_tag_name
+
+      auth {
+        username = var.username
+        password = var.password
+      }
     }
   }
 

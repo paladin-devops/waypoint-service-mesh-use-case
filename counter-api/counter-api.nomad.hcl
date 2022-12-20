@@ -1,6 +1,7 @@
 job "counter-api" {
   datacenters = ["nuka-cola"]
   group "api" {
+    count = ${count}
     network {
       mode = "bridge"
     }
