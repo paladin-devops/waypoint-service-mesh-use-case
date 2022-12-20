@@ -100,8 +100,8 @@ app "counter-ui" {
 
   deploy {
     use "kubernetes" {
-      replicas     = var.ui_replicas
-      service_port = 9002
+      replicas        = var.ui_replicas
+      service_port    = 9002
       service_account = "counter-ui"
       labels = {
         "waypoint-app" = "counter-ui"
@@ -116,6 +116,13 @@ app "counter-ui" {
         "consul.hashicorp.com/connect-service-port"      = "9002"
         "consul.hashicorp.com/connect-service-upstreams" = "count-api:9001:nuka-cola"
       }
+    }
+  }
+
+  release {
+    use "kubernetes" {
+      load_balancer = true
+      port          = 9002
     }
   }
 }
