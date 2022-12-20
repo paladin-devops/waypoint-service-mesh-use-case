@@ -46,7 +46,7 @@ variable "ui_replicas" {
 
 runner {
   enabled = true
-  profile = "nomad-mr-house"
+  profile = "kubernetes-mr-new-vegas"
 }
 
 app "counter-api" {
