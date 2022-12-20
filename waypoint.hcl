@@ -100,8 +100,8 @@ app "counter-ui" {
 
   deploy {
     use "kubernetes" {
-      replicas = var.ui_replicas
-      port     = 9002
+      replicas     = var.ui_replicas
+      service_port = 9002
       annotations = {
         "consul.hashicorp.com/connect-inject"            = "true"
         "consul.hashicorp.com/transparent-proxy"         = "false"
