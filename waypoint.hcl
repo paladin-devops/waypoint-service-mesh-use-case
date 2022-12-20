@@ -80,7 +80,7 @@ app "counter-api" {
 
 app "counter-ui" {
   build {
-    use "docker-ref" {
+    use "docker-pull" {
       image = "hashicorpnomad/counter-dashboard"
       tag   = "v1"
     }
