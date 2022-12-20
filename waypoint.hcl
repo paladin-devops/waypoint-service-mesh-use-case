@@ -104,7 +104,7 @@ app "counter-ui" {
       service_port = 9002
       service_account = "counter-ui"
       labels = {
-        "waypoint-app" = "counterer-ui"
+        "waypoint-app" = "counter-ui"
       }
       annotations = {
         "consul.hashicorp.com/connect-inject"            = "true"
