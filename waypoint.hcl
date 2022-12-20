@@ -103,6 +103,9 @@ app "counter-ui" {
       replicas     = var.ui_replicas
       service_port = 9002
       service_account = "count-ui"
+      labels = {
+        "waypoint-app" = "counter-ui"
+      }
       annotations = {
         "consul.hashicorp.com/connect-inject"            = "true"
         "consul.hashicorp.com/transparent-proxy"         = "false"
