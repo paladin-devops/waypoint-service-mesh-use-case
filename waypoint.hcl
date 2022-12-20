@@ -107,11 +107,11 @@ app "counter-ui" {
         }
       }
       annotations = {
-        consul.hashicorp.com/connect-inject            = "true"
-        consul.hashicorp.com/transparent-proxy         = "false"
-        consul.hashicorp.com/connect-service           = "count-ui"
-        consul.hashicorp.com/connect-service-port      = "9002"
-        consul.hashicorp.com/connect-service-upstreams = "count-api:9001"
+        "consul.hashicorp.com/connect-inject"            = "true"
+        "consul.hashicorp.com/transparent-proxy"         = "false"
+        "consul.hashicorp.com/connect-service"           = "count-ui"
+        "consul.hashicorp.com/connect-service-port"      = "9002"
+        "consul.hashicorp.com/connect-service-upstreams" = "count-api:9001"
       }
     }
   }
