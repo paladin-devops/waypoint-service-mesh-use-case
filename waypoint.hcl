@@ -102,9 +102,14 @@ app "counter-ui" {
     use "kubernetes" {
       replicas        = var.ui_replicas
       service_port    = 9002
-      service_account = "counter-ui"
+      service_account = "${app.name}"
       labels = {
-        "waypoint-app" = "counter-ui"
+        "waypoint-app" = "${app.name}"
+      }
+      pod {
+        container {
+          name = "${app.name}"
+        }
       }
       probe {
         failure_threshold = 10
@@ -112,7 +117,7 @@ app "counter-ui" {
       annotations = {
         "consul.hashicorp.com/connect-inject"            = "true"
         "consul.hashicorp.com/transparent-proxy"         = "false"
-        "consul.hashicorp.com/connect-service"           = "counter-ui"
+        "consul.hashicorp.com/connect-service"           = "${app.name}"
         "consul.hashicorp.com/connect-service-port"      = "9002"
         //"consul.hashicorp.com/connect-service-upstreams" = "count-api:9001:nuka-cola"
       }
