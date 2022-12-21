@@ -99,37 +99,8 @@ app "counter-ui" {
   }
 
   deploy {
-    use "kubernetes" {
-      replicas        = var.ui_replicas
-      service_port    = 9002
-      service_account = "${app.name}"
-      labels = {
-        "waypoint-app" = "${app.name}"
-      }
-      pod {
-        container {
-          name = "${app.name}"
-        }
-      }
-      probe {
-        failure_threshold = 10
-      }
-      annotations = {
-        "consul.hashicorp.com/connect-inject"            = "true"
-/*
-        "consul.hashicorp.com/transparent-proxy"         = "false"
-        "consul.hashicorp.com/connect-service"           = "${app.name}"
-        "consul.hashicorp.com/connect-service-port"      = "9002"
-        "consul.hashicorp.com/connect-service-upstreams" = "count-api:9001:nuka-cola"
-*/
-      }
-    }
-  }
-
-  release {
-    use "kubernetes" {
-      load_balancer = true
-      port          = 9002
+    use "kubernetes-apply" {
+      path = templatedir("${path.app}/counter-ui")
     }
   }
 }
