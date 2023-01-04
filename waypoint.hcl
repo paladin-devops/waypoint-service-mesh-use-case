@@ -100,7 +100,8 @@ app "counter-ui" {
 
   deploy {
     use "kubernetes-apply" {
-      path = templatedir("${path.app}/counter-ui")
+      path = templatefile("${path.app}/counter-ui/counter-ui.yaml")
+      prune_label = "app=${app.name}"
     }
   }
 }
