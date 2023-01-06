@@ -99,9 +99,24 @@ app "counter-ui" {
   }
 
   deploy {
-    use "kubernetes-apply" {
-      path = templatefile("${path.app}/counter-ui/counter-ui.yaml")
-      prune_label = "app=${app.name}"
+    use "kubernetes" {
+      replicas        = var.ui_replicas
+      service_port    = 9002
+      service_account = "${app.name}"
+      labels = {
+        "waypoint-app" = "${app.name}"
+      }
+      pod {
+        container {
+          name = "${app.name}"
+          static_environment = {
+            "COUNTING_SERVICE_URL" = "http://counter-api.virtual.nuka-cola.consul:9001"
+          }
+        }
+      }
+      probe {
+        failure_threshold = 10
+      }
     }
   }
 }
