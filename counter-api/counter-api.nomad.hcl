@@ -7,8 +7,16 @@ job "counter-api" {
     }
 
     service {
-      name = "count-api"
-      port = "9001"
+      name = "counter-api"
+      port = "9002"
+      check {
+        expose   = true
+        type     = "http"
+        name     = "api-health"
+        path     = "/health"
+        interval = "10s"
+        timeout  = "3s"
+      }
 
       connect {
         sidecar_service {}
