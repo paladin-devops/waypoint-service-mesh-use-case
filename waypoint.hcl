@@ -71,7 +71,7 @@ app "counter-api" {
 
   deploy {
     use "nomad-jobspec" {
-      jobspec = templatefile("${path.app}/counter-api/counter-api.nomad.hcl", {
+      jobspec = templatefile("${path.app}/nuka-cola/counter-api.nomad.hcl", {
         count = var.api_replicas
       })
     }
@@ -114,9 +114,6 @@ app "counter-ui" {
             "PORT" = "9002"
           }
         }
-      }
-      probe {
-        failure_threshold = 10
       }
       probe_path = "/health"
     }
