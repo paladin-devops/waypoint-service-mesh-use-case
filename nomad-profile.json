@@ -1,0 +1,5 @@
+{
+  "datacenter": "nuka-cola",
+  "region": "nuka-cola",
+  "nomad_host": "<NOMAD_SERVER_ADDRESS_ACCESSIBLE_FROM_RUNNER>"
+}
