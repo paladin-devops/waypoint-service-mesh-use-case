@@ -1,35 +1,37 @@
 global:
   name: consul
+  logLevel: debug
   peering:
     enabled: true
   datacenter: sunset-sarsaparilla
+
+  # Note: The TLS configuration below expects that a Kubernetes secret,
+  # named `consul-tls`, has already been created in the `consul` namespace.
+  # This secret must contain a CA certificate and key.
   tls:
     enabled: true
     caCert:
-      secretName: consul-federation
+      secretName: consul-tls
       secretKey: caCert
     caKey:
-      secretName: consul-federation
+      secretName: consul-tls
       secretKey: caKey
 
+  # Note: The ACL configuration below expects that a Kubernetes secret,
+  # named `consul-bootstrap-token`, has already been created in the `consul`
+  # namespace. This secret must contain a string, which will be the Consul
+  # ACL bootstrap token.
   acls:
     manageSystemACLs: true
-
-  # Delete this gossipEncryption section if gossip encryption is disabled.
-  gossipEncryption:
-    secretName: consul-federation
-    secretKey: gossipEncryptionKey
+    bootstrapToken:
+      secretName: consul-bootstrap-token
+      secretKey: bootstrapToken
 
 connectInject:
   enabled: true
   default: true
   k8sAllowNamespaces: ['*']
   k8sDenyNamespaces: []
-  cni:
-    enabled: true
-    logLevel: info
-    cniBinDir: "/opt/cni/bin"
-    cniNetDir: "/etc/cni/net.d"
 
 ingressGateways:
   enabled: true
