@@ -1,0 +1,58 @@
+global:
+  name: consul
+  logLevel: debug
+  peering:
+    enabled: true
+  datacenter: sunset-sarsaparilla
+
+  # Note: The TLS configuration below expects that a Kubernetes secret,
+  # named `consul-tls`, has already been created in the `consul` namespace.
+  # This secret must contain a CA certificate and key.
+  tls:
+    enabled: true
+    caCert:
+      secretName: consul-tls
+      secretKey: caCert
+    caKey:
+      secretName: consul-tls
+      secretKey: caKey
+
+  # Note: The ACL configuration below expects that a Kubernetes secret,
+  # named `consul-bootstrap-token`, has already been created in the `consul`
+  # namespace. This secret must contain a string, which will be the Consul
+  # ACL bootstrap token.
+  acls:
+    manageSystemACLs: true
+    bootstrapToken:
+      secretName: consul-bootstrap-token
+      secretKey: bootstrapToken
+
+connectInject:
+  enabled: true
+  default: true
+  k8sAllowNamespaces: ['*']
+  k8sDenyNamespaces: []
+
+ingressGateways:
+  enabled: true
+  gateways:
+    - name: ingress-gateway
+      service:
+        type: LoadBalancer
+
+meshGateway:
+  enabled: true
+  wanAddress:
+    enabled: true
+
+server:
+  replicas: 1
+  extraConfig: |
+    {
+      "log_level": "DEBUG"
+    }
+
+ui:
+  enabled: true
+  service:
+    type: LoadBalancer

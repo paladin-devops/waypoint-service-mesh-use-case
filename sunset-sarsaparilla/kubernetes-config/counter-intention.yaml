@@ -1,0 +1,11 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: counter
+spec:
+  destination:
+    name: counter-api
+  sources:
+    - name: counter-ui
+      action: allow
+      peer: nuka-cola
