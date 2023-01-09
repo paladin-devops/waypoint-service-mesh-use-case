@@ -110,13 +110,15 @@ app "counter-ui" {
         container {
           name = "${app.name}"
           static_environment = {
-            "COUNTING_SERVICE_URL" = "http://counter-api.virtual.nuka-cola.consul:9001"
+            "COUNTING_SERVICE_URL" = "http://counter-api.virtual.nuka-cola.consul"
+            "PORT" = "9002"
           }
         }
       }
       probe {
         failure_threshold = 10
       }
+      probe_path = "/health"
     }
   }
 }
